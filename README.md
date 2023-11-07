@@ -3,7 +3,7 @@
 MY STORE
 
 ### To view the api documentation
-- You might need a postman deskop application installed and a good network connection to run it. Click 👉 [api documentation](https://documenter.getpostman.com/view/18837668/2s9YRFVVQG)
+- You might need a postman deskop application installed and a good network connection to run it. Click 👉 [api documentation](https://documenter.getpostman.com/view/18837668/2s9YXh5N8A)
 
 #### Basic Database design
 - Database used: NoSQL (Mongodb)
