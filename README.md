@@ -10,8 +10,8 @@ MY STORE
 
 ## Usage
 
-- Clone repository using command `git clone https://github.com/Jeremiah-Ropo/mystore.git`
-- Change folder into the cloned folder using the command `cd payment-system-api`
+- Clone repository using command `https://github.com/Jeremiah-Ropo/mainstack-mystore.git`
+- Change folder into the cloned folder using the command `cd mainstack-mystore-api`
 - Install project dependencies using the command `yarn install` or `npm install`
 - Run `yarn run dev` or `npm run dev` to start the development server
 
