@@ -1,0 +1,13 @@
+node_modules/
+build/
+dist/
+tmp/
+temp/
+log/
+.env
+serviceAccountKey.json
+log/access.log
+
+
+
+
