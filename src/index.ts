@@ -3,8 +3,6 @@ import "reflect-metadata";
 import express, { Response, Request} from "express";
 import cors from "cors";
 import helmet from "helmet";
-import fs from "fs";
-import path from "path";
 import morgan from "morgan";
 import routes from "./routes";
 import bodyParser from "body-parser";
@@ -22,10 +20,6 @@ connectDb();
 export const app = express();
 
 let whitelist: string[] = ["https://payment-system-app.com"];
-
-if (NODE_ENV !== "production") {
-  whitelist = [...whitelist,  "http://localhost:9000"];
-}
 
 const corsOptions = {
   origin: whitelist,
@@ -53,12 +47,6 @@ app.use((req, res, next) => {
   next();
 });
 
-try {
-  const accessLogStream = fs.createWriteStream(path.join(__dirname, "../log/access.log"), { flags: "a" });
-  app.use(morgan("combined", { stream: accessLogStream }));
-} catch (error) {
-  console.log(error);
-}
 // app.use(morgan("dev"));
 app.use(morgan("combined"));
 

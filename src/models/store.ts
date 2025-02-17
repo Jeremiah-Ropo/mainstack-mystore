@@ -4,6 +4,8 @@ import { IStore, IStoreDocument } from "../interface/store.interface";
 const StoreSchemaField: Record<keyof IStore, any> = {
   name: { type: String, required: true },
   user_id: { type: Schema.Types.ObjectId, ref: "user", required: true },
+  product_id: { type: Schema.Types.ObjectId, ref: "product" },
+  number_of_product: { type: Number },
   description: { type: String },
   address: {
     street: { type: String },

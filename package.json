@@ -1,10 +1,10 @@
 {
-  "name": "payment-system-service",
+  "name": "product-management-service",
   "version": "0.0.1",
   "description": "Backend Engineer challenge: Build a simple RESTful API to create and manage products in a store",
   "repository": "https://github.com/Jeremiah-Ropo/mystore.git",
   "author": "Jeremiah <patrickjeremiah00@gmail.com>",
-  "license": "MIT",
+  "license": "NO LICENSE",
   "scripts": {
     "start": "yarn tsc && node ./dist/index.js",
     "dev": "ts-node-dev --respawn ./src/index.ts",
@@ -26,6 +26,7 @@
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
     "helmet": "^7.0.0",
+    "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.1",
     "mongodb": "^6.2.0",
     "mongoose": "^8.0.0",

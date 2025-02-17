@@ -2,6 +2,8 @@ export interface IStore {
     name: string;
     user_id: string;
     description: string;
+    product_id: string;
+    number_of_product: number;
     address: {
         street: string;
         city: string;
