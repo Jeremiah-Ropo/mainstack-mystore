@@ -7,6 +7,7 @@
   "license": "NO LICENSE",
   "scripts": {
     "start": "yarn tsc && node ./dist/index.js",
+    "build": "rimraf ./dist && tsc",
     "dev": "ts-node-dev --respawn ./src/index.ts",
     "test": "mocha --require ts-node/register ./test/**/*.ts --timeout 20000 --exit"
   },
