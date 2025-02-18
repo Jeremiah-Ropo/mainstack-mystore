@@ -8,7 +8,9 @@ export type JwtPayload = {
   created_at?: string;
 };
 
-export const createJwtToken = (payload: JwtPayload): string => {
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
-  return token;
+export const createJwtToken = (payload: JwtPayload, expiresIn?): string => {
+  const access_token = jwt.sign(payload, JWT_SECRET as string, {
+    expiresIn: expiresIn || (JWT_EXPIRATION as string | number),
+  });
+  return access_token;
 };

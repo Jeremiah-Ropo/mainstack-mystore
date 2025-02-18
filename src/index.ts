@@ -7,8 +7,7 @@ import morgan from "morgan";
 import routes from "./routes";
 import bodyParser from "body-parser";
 
-import { NODE_ENV, PORT } from "./config";
-
+import {PORT } from "./config";
 
 import "./utils/response/customSuccess";
 import { errorHandler } from "./middlewares/errorHandler";
