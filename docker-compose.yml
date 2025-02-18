@@ -4,7 +4,7 @@ services:
     build:
       context: ./src
     ports:
-      - "4000:4001"
+      - "4001:4001"
     depends_on:
       - mongodb
   mongodb:
