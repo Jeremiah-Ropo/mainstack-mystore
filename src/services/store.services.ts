@@ -22,7 +22,7 @@ class StoreService {
             const newStore = await this.store.create({ ...storeInputDTO, user_id: user });
             return newStore;
         } catch (error) {
-            next(new CustomError(500, "Internal server error", error.message));
+            return next(new CustomError(500, "Internal server error", error.message));
         }
     }
 
@@ -34,14 +34,14 @@ class StoreService {
             const store = await this.store.find({user_id: userId});
             return store;
         } catch (error) {
-            next(new CustomError(500, "Internal server error", error.message));
+            return next(new CustomError(500, "Internal server error", error.message));
         }
     }
 
     async updateStore(userId: string, storeInputDTO: any, next: NextFunction): Promise<IStore | void> {
         try {
             const user = await this.user.findById(userId);
-            if (!user) next(new CustomError(404, "User does not exist"));
+            if (!user) return next(new CustomError(404, "User does not exist"));
 
             const store = await this.store.findOne({ user_id: userId });
             if (!store) throw next(new CustomError(404, "Store does not exist"));
@@ -49,7 +49,7 @@ class StoreService {
             const storeUpdate = await this.store.findByIdAndUpdate(store._id, storeInputDTO, { new: true });
             return storeUpdate;
         } catch (error) {
-            next(new CustomError(500, "Internal server error", error.message));
+            return next(new CustomError(500, "Internal server error", error.message));
         }
     };
 
@@ -61,7 +61,7 @@ class StoreService {
             const stores = await this.store.find();
             return stores;
         } catch (error) {
-            next(new CustomError(500, "Internal server error", error.message));
+            return next(new CustomError(500, "Internal server error", error.message));
         }
     }
 
@@ -69,29 +69,29 @@ class StoreService {
     async getUserProduct(userId: string, next: NextFunction): Promise<IProduct[] | void> { 
         try {
             const user = await this.user.findById(userId);
-            if (!user) next(new CustomError(404, "User does not exist"));
+            if (!user) return next(new CustomError(404, "User does not exist"));
     
             const store = await this.store.findOne({ user_id: userId });
-            if (!store) next(new CustomError(404, "Store does not exist"));
+            if (!store) return next(new CustomError(404, "Store does not exist"));
     
             const product = await this.product.find({store_id: store.id});
             return product;
         } catch (error) { 
-            next(new CustomError(500, "Internal server error", error.message));
+            return next(new CustomError(500, "Internal server error", error.message));
         }
     }
 
     async getStoreById(userId: string, storeId: string, next: NextFunction): Promise<IStore | void> {
         try {
             const user = await this.user.findById(userId);
-            if (!user) next(new CustomError(404, "User does not exist"));
+            if (!user) return next(new CustomError(404, "User does not exist"));
 
             const store = await this.store.findById(storeId);
             if (!store) throw next(new CustomError(404, "Store does not exist"));
             return store;
 
         } catch (error) {
-            next(new CustomError(500, "Internal server error", error.message));
+            return next(new CustomError(500, "Internal server error", error.message));
         }
     }
 }

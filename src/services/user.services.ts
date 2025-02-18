@@ -3,7 +3,6 @@ import { Service } from "typedi";
 
 import { UserModel, ProductModel, StoreModel } from "../models";
 import { IUser, UserLoginDTO, UserInputDTO } from "../interface/user.interface";
-import { IProduct } from "../interface/product.interface";
 import { CustomError } from "../utils/response/custom-error/customError";
 import { createJwtToken } from "../utils/createJwtToken";
 
@@ -15,7 +14,7 @@ class UserService {
     try {
       const { email } = userInputDTO;
       const user = await this.user.findOne({ email });
-      if (user) next(new CustomError(400, "User already exist"));
+      if (user) return next(new CustomError(400, "User already exist"));
       const newUser = await this.user.create(userInputDTO);
       delete newUser.password;
       return newUser;
@@ -28,8 +27,8 @@ class UserService {
     try {
       const { email, password } = userLoginDTO;
       const user = await this.user.findOne({ email });
-      if (!user) next(new CustomError(404, "User does not exist"));
-      if (user.password !== password) next(new CustomError(400, "Invalid email or password"));
+      if (!user) return next(new CustomError(404, "User does not exist"));
+      if (user.password !== password) return next(new CustomError(400, "Invalid email or password"));
       const token = createJwtToken({ user_id: user.id, email: user.email });
       user.last_login = new Date();
       await user.save();
@@ -42,7 +41,7 @@ class UserService {
   async getUserById(userId: string, next: NextFunction): Promise<IUser | void> {
     try {
       const user = await this.user.findById(userId);
-      if (!user) next(new CustomError(404, "User does not exist"));
+      if (!user) return next(new CustomError(404, "User does not exist"));
       delete user.password;
       return user;
     } catch (error) {
@@ -62,7 +61,7 @@ class UserService {
   async updateUser(userId: string, userInputDTO: any, next: NextFunction): Promise<IUser | void> {
     try {
       const user = await this.user.findById(userId);
-      if (!user) next(new CustomError(404, "User does not exist"));
+      if (!user) return next(new CustomError(404, "User does not exist"));
       const userUpdate = await this.user.findByIdAndUpdate(userId, userInputDTO , { new: true });
       return userUpdate;
     } catch (error) {

@@ -19,19 +19,21 @@ class ProductService {
   ): Promise<IProduct | void> {
     try {
       const user = await this.user.findById(userId);
-      if (!user) next(new CustomError(404, "User does not exist"));
+      if (!user) return next(new CustomError(404, "User does not exist"));
 
       const store = await this.store.findById(storeId);
-      if (!store) next(new CustomError(404, "Store does not exist"));
+      if (!store) return next(new CustomError(404, "Store does not exist"));
 
       let { sku: productSku } = productInputDTO;
       const product = await this.product.findOne({ sku: productSku });
-      if (product) next(new CustomError(400, "Product already exists"));
+      if (product) return next(new CustomError(400, "Product already exists"));
       const sku = uniqueGeneratorSku();
       const newProduct = await this.product.create({ ...productInputDTO, sku, store_id: store });
+      store.number_of_product = await this.product.countDocuments({ store_id: store._id });
+      await store.save();
       return newProduct;
     } catch (error) {
-      next(new CustomError(500, "Internal server error", error.message));
+      return next(new CustomError(500, "Internal server error", error.message));
     }
   }
 
@@ -40,21 +42,21 @@ class ProductService {
       const products = await this.product.find();
       return products;
     } catch (error) {
-      next(new CustomError(500, "Internal server error", error.message));
+      return next(new CustomError(500, "Internal server error", error.message));
     }
   }
 
   async getProductById(userId: string, productId: string, next: NextFunction): Promise<IProduct | void> {
     try {
       const user = await this.user.findById(userId);
-      if (!user) next(new CustomError(404, "User does not exist"));
+      if (!user) return next(new CustomError(404, "User does not exist"));
 
       const product = await this.product.findById(productId);
-      if (!product) next(new CustomError(404, "Product does not exist"));
+      if (!product) return next(new CustomError(404, "Product does not exist"));
 
       return product;
     } catch (error) {
-      next(new CustomError(500, "Internal server error", error.message));
+      return next(new CustomError(500, "Internal server error", error.message));
     }
   }
 
@@ -64,12 +66,12 @@ class ProductService {
       if (!user) throw next(new CustomError(404, "User does not exist"));
 
       const store = await this.store.findById(storeId);
-      if (!store) next(new CustomError(404, "Store does not exist"));
+      if (!store) return next(new CustomError(404, "Store does not exist"));
 
       const products = await this.product.find({ store_id: store._id });
       return products;
     } catch (error) {
-      next(new CustomError(500, "Internal server error", error.message));
+      return next(new CustomError(500, "Internal server error", error.message));
     }
   }
 
@@ -81,29 +83,29 @@ class ProductService {
   ): Promise<IProduct | void> {
     try {
       const user = await this.user.findById(userId);
-      if (!user) next(new CustomError(404, "User does not exist"));
+      if (!user) return next(new CustomError(404, "User does not exist"));
       const product = await this.product.findById(productId);
-      if (!product) next(new CustomError(404, "Product does not exist"));
+      if (!product) return next(new CustomError(404, "Product does not exist"));
 
       const updatedProduct = await this.product.findByIdAndUpdate(productId, productInputDTO, { new: true });
       return updatedProduct;
     } catch (error) {
-      next(new CustomError(500, "Internal server error", error.message));
+      return next(new CustomError(500, "Internal server error", error.message));
     }
   }
 
   async deleteProduct(userId: string, productId: string, next: NextFunction): Promise<IProduct | void> {
     try {
       const user = await this.user.findById(userId);
-      if (!user) next(new CustomError(404, "User does not exist"));
+      if (!user) return next(new CustomError(404, "User does not exist"));
 
       const product = await this.product.findById(productId);
-      if (!product) next(new CustomError(404, "Product does not exist"));
+      if (!product) return next(new CustomError(404, "Product does not exist"));
 
       const deletedProduct = await this.product.findByIdAndDelete(productId);
       return deletedProduct;
     } catch (error) {
-      next(new CustomError(500, "Internal server error", error.message));
+      return next(new CustomError(500, "Internal server error", error.message));
     }
   }
 }
