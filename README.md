@@ -1,9 +1,9 @@
 # store-backend-api
 
-MY STORE
+STORE MANAGEMENT API
 
 ### To view the api documentation
-- You might need a postman deskop application installed and a good network connection to run it. Click 👉 [api documentation](https://documenter.getpostman.com/view/18837668/2s9YXh5N8A)
+- You might need a postman deskop application installed and a good network connection to run it. Click 👉 [api documentation](https://documenter.getpostman.com/view/33944170/2sAYXFiHHC)
 
 #### Basic Database design
 - Database used: NoSQL (Mongodb)
