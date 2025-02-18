@@ -5,6 +5,10 @@ STORE MANAGEMENT API
 ### To view the api documentation
 - You might need a postman deskop application installed and a good network connection to run it. Click 👉 [api documentation](https://documenter.getpostman.com/view/33944170/2sAYXFiHHC)
 
+### To view the live API
+- You can click to view the health of the API, if it's up. As it's deployed on Render. Click 👉 [live API](https://mainstack-mystore.onrender.com/health)
+
+
 #### Basic Database design
 - Database used: NoSQL (Mongodb)
 
